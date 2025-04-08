@@ -1,9 +1,16 @@
 import math
 
-def generating_function(n,p):
-	R.<t> = QQ['t']
-	K = R.fraction_field()
-	return math.prod([(1-t^(i*p))^(i*p)/(1-t^i)^i for i in range(n)])
+R.<t> = QQ['t']
+K = R.fraction_field()
+
+def pp(t,i):
+	return (1-t^i)^(-i)
+
+def cs(t,i):
+	return (1-t^(2*i-1))^(-i)*(1-t^(2*i))^(-i)
+
+def generating_function(n,f,p):
+	return math.prod([f(t,i)/f(t^p,i)^p for i in range(n)])
 
 def positivity_test(n,p):
 	counter = 0
