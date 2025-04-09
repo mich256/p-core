@@ -52,7 +52,7 @@ def one_peel(t, tab):
 		except IndexError:
 			print('no more rim hooks of length t')
 			raise
-	return tab
+	return [x for x in tab if x]
 
 def peel(t, pp):
 	q = [list(tup) for tup in pp.to_tableau()]
@@ -60,5 +60,5 @@ def peel(t, pp):
 		try:
 			q = one_peel(t, q)
 		except:
-			return PlanePartition([x for x in q if x])
+			return PlanePartition(q)
 
