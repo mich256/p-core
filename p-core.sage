@@ -33,3 +33,32 @@ def is_cs(pp):
 
 def cs_pp(a,b,c,k):
 	return [pp for pp in PlanePartitions([a,b,c]) if is_cs(pp) and pp.number_of_boxes()==k]
+
+def one_peel(t, tab):
+	i = 0
+	j = len(tab[0])-1
+	temp = tab[i][j]
+	tab[i].pop()
+	for k in range(t-1):
+		try:
+			if tab[i+1][j] == temp or tab[i+1][j] == temp-1:
+				temp = tab[i+1][j]
+				tab[i+1].pop(j)
+				i += 1
+			else:
+				temp = tab[i][j-1]
+				tab[i].pop(j-1)
+				i += 1
+		except IndexError:
+			print('no more rim hooks of length t')
+			raise
+	return tab
+
+def peel(t, pp):
+	q = [list(tup) for tup in pp.to_tableau()]
+	while True:
+		try:
+			q = one_peel(t, q)
+		except:
+			return PlanePartition([x for x in q if x])
+
