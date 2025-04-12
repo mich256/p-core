@@ -58,11 +58,7 @@ def one_peel(t, pp):
 		tab = [list(tup) for tup in pp.to_tableau()]
 		if helper(tab, i, t):
 			try:
-				temp = PlanePartition(tab)
-				if is_cs(temp):
-					return temp
-				else:
-					continue
+				return PlanePartition(tab)
 			except ValueError:
 				continue
 	raise Exception('no more hooks to remove')
